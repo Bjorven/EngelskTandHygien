@@ -1,0 +1,18 @@
+﻿body {
+    background-color: black;
+}
+
+.DMain {
+    margin: 10px;
+    width: 300px;
+    height: 200px;
+    background-color: gray;
+    border-radius: 5%;
+}
+
+    .DMain .DSub {
+        
+        margin: 10px;
+        color: black;
+        background-color: white;
+    }
