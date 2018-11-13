@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TandVark.Data.Data1;
 using TandVark.Domain.DTO;
 using TandVark.Domain.Repositories.Interfaces;
+using TandVark.Domain.Helpers;
 
 namespace TandVark.Domain.Repositories
 {
@@ -24,5 +25,6 @@ namespace TandVark.Domain.Repositories
                 FirstOrDefaultAsync(table => table.FldSSnumber.Equals(requestedPatient.FldSSnumber));
             return value;
         }
+
     }
 }

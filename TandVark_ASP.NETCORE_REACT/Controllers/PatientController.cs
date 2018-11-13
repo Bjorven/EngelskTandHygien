@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TandVark.Domain.DTO;
 using TandVark.Domain.Services.Interfaces;
-using TandVark.Domain.Helpers;
+using TandVark.Domain.Helpers.Interfaces;
 
 namespace TandVark_ASP.NETCORE_REACT.Controllers
 {
@@ -15,19 +11,21 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
     public class PatientController : Controller
     {
         private readonly IPatientServices _patientServices;
+        private readonly IHelperValidationSSN _helperValidationSSN;
 
-        public PatientController(IPatientServices patientServices)
+
+        public PatientController(IPatientServices patientServices, IHelperValidationSSN helperValidationSSN)
         {
             _patientServices = patientServices;
+            _helperValidationSSN = helperValidationSSN;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SingelPatientDetailsAsync([FromBody] PatientDTO requestedPatientSSNumber)
+        [HttpGet("{requestedPatientSSNumber}")]
+        public async Task<IActionResult> SingelPatientDetailsAsync(string requestedPatientSSNumber)
         {
             try
             {
-                var helper = new HelperValidationSSN();
-                if (!helper.validate(requestedPatientSSNumber))
+                if (!_helperValidationSSN.validate(requestedPatientSSNumber))
                     return BadRequest("Invalid SSN");
                 var patient = await _patientServices.SingelPatientAsync(requestedPatientSSNumber);
                 return Ok(patient);
@@ -39,6 +37,20 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
             catch (ArgumentNullException argumentNullException)
             {
                 return BadRequest(argumentNullException.ParamName);
+            }
+        }
+
+        [HttpGet("")]
+        public async Task<IActionResult> AllPatients()
+        {
+            try
+            {
+                var pa = await _patientServices.AllPatients();
+                return Ok(pa);
+            }
+            catch(Exception e)
+            {
+                return  StatusCode((int)HttpStatusCode.InternalServerError,  e.Message);
             }
         }
     }

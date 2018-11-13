@@ -13,6 +13,8 @@ using TandVark.Domain.Repositories.Interfaces;
 using TandVark.Data.Data1;
 using TandVark.Domain.Services;
 using TandVark.Domain.Services.Interfaces;
+using TandVark.Domain.Helpers.Interfaces;
+using TandVark.Domain.Helpers;
 
 namespace TandVark_ASP.NETCORE_REACT
 {
@@ -34,6 +36,7 @@ namespace TandVark_ASP.NETCORE_REACT
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IUser, User>();
+            services.AddScoped<IHelperValidationSSN, HelperValidationSSN>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the React files will be served from this directory
