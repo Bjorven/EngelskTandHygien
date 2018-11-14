@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TandVark.Data.Interfaces;
 
 namespace TandVark.Data.Data1
 {
-    public class TblAppointment
+    public class TblAppointment:IHasDate
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -23,8 +24,6 @@ namespace TandVark.Data.Data1
         public virtual TblPatient FldAppointedPatient { get; set; }
 
         public virtual List<TblXray> FldXrays { get; set; }
-        
-        
 
     }
 }

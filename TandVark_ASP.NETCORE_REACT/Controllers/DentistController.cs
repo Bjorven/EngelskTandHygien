@@ -17,10 +17,11 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
             _patientServices = patientServices;
         }
 
-        [HttpGet("{requestedPatientSSNumber}")]
-        public IActionResult AllAppointments()
+        [HttpGet("{requestedPatientID}")]
+        public IActionResult AllAppointments(int requestedPatientID)
         {
-            return View();
+            var appoint = _patientServices.AllPatientsAppointments(requestedPatientID);
+            return Ok(appoint);
         }
     }
 }

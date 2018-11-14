@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using TandVark.Domain.Services.Interfaces;
 using TandVark.Domain.Repositories.Interfaces;
 using TandVark.Domain.Helpers;
+using System.Linq;
+
 
 
 namespace TandVark.Domain.Services
@@ -44,10 +46,15 @@ namespace TandVark.Domain.Services
 
         }
 
-        public async Task<List<TblAppointment>> AllFutureAppointments(string requestedPatient)
+        public List<TblAppointment> AllPatientsAppointments(int pID)
         {
-            var result = await _tandVardContext.TblPatients.SingleOrDefaultAsync(x => x.FldSSnumber == requestedPatient);
-            return result.FldAppointment;
+            var res = (_tandVardContext
+                       .TblAppointments
+                       .Where(x => x.FldPatientFK == pID)
+                       .Future()
+                       .ToList()
+                       );
+            return res;
         }
     }
 }
