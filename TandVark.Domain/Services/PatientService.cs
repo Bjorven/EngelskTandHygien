@@ -22,7 +22,7 @@ namespace TandVark.Domain.Services
             _tandVardContext = tandVerkContext;
         }
 
-        public async Task<PatientDTO> SingelPatientAsync(string requestedPatient)
+        public async Task<TblPatient> SingelPatientAsync(string requestedPatient)
         {
 
             var value = await _tandVardContext.TblPatients.SingleOrDefaultAsync(x => x.FldSSnumber == requestedPatient);
@@ -32,18 +32,7 @@ namespace TandVark.Domain.Services
                 throw new NullReferenceException("Patient does not exist");
             }
 
-            var Patient = new PatientDTO
-            {
-                FldId = value.FldPatientId,
-                FldFirstName = value.FldFirstName,
-                FldLastName = value.FldLastName,
-                FldSSnumber = value.FldSSnumber,
-                FldAddress = value.FldAddress,
-                FldEmail = value.FldEmail,
-                FldPhoneId = value.FldPhoneId
-
-            };
-            return Patient;
+            return value;
 
         }
 
@@ -53,6 +42,12 @@ namespace TandVark.Domain.Services
             var result = _tandVardContext.TblPatients.Page(1);
             return await Task.FromResult(result);
 
+        }
+
+        public async Task<List<TblAppointment>> AllFutureAppointments(string requestedPatient)
+        {
+            var result = await _tandVardContext.TblPatients.SingleOrDefaultAsync(x => x.FldSSnumber == requestedPatient);
+            return result.FldAppointment;
         }
     }
 }

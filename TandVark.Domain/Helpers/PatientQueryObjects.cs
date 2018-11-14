@@ -12,9 +12,11 @@ namespace TandVark.Domain.Helpers
         
 
 
-        public  static IQueryable<TblPatient> AllPatients(this IQueryable<TblPatient> @this)
+        public static IQueryable<TblPatient> AllPatients(this IQueryable<TblPatient> @this)
         {
-            var patients = @this;
+            var dateNow = new DateTime().Date;
+            
+            var patients = @this.Include()
             return patients;
         }
     }
