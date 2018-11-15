@@ -34,7 +34,7 @@ namespace TandVark.UnitTest
             var expectedStatusCode = (int)HttpStatusCode.OK;
 
             var fakeUserDTOInput= A.Fake<PatientDTO>();
-            fakeUserDTOInput.FldSSnumber = "210301230123";
+            fakeUserDTOInput.FldSSnumber = "198901263999";
             var fakeUserDTOResult = A.Fake<PatientDTO>();
             var fakeService = A.Fake<IPatientServices>();
             
@@ -56,7 +56,7 @@ namespace TandVark.UnitTest
             //ARRANGE
             var expectedType = typeof(BadRequestObjectResult);
             var expectedStatusCode = (int)HttpStatusCode.BadRequest;
-            var message = "Patient does not exist";
+            var message = "Invalid SSN";
 
             var fakeUserInputDTO = A.Fake<PatientDTO>();
             fakeUserInputDTO.FldSSnumber = "210301230123";
