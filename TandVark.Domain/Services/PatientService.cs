@@ -9,8 +9,7 @@ using TandVark.Domain.Services.Interfaces;
 using TandVark.Domain.Repositories.Interfaces;
 using TandVark.Domain.Helpers;
 using System.Linq;
-
-
+using TandVark.Domain.Helpers.Interfaces;
 
 namespace TandVark.Domain.Services
 {
@@ -18,10 +17,12 @@ namespace TandVark.Domain.Services
     {
         
         private readonly TandVerkContext _tandVardContext;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
-        public PatientServices(TandVerkContext tandVerkContext)
+        public PatientServices(TandVerkContext tandVerkContext, IDateTimeProvider dateTimeProvider)
         {
             _tandVardContext = tandVerkContext;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         public async Task<TblPatient> SingelPatientAsync(string requestedPatient)
@@ -46,12 +47,12 @@ namespace TandVark.Domain.Services
 
         }
 
-        public List<TblAppointment> AllPatientsAppointments(int pID)
+        public List<TblAppointment> AllPatientsFutureAppointments(int pID)
         {
             var res = (_tandVardContext
                        .TblAppointments
                        .Where(x => x.FldPatientFK == pID)
-                       .Future()
+                       .FutureAppointments(_dateTimeProvider.Today())
                        .ToList()
                        );
             return res;

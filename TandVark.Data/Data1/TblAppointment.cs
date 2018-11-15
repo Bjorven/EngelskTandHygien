@@ -6,7 +6,7 @@ using TandVark.Data.Interfaces;
 
 namespace TandVark.Data.Data1
 {
-    public class TblAppointment:IHasDate
+    public class TblAppointment:IHasAppointment
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

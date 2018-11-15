@@ -10,17 +10,17 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
     public class DentistController : Controller
     {
 
-        private readonly IPatientServices _patientServices;
+        private readonly IDentistServices _dentisServices;
 
-        public DentistController(IPatientServices patientServices)
+        public DentistController(IDentistServices dentisServices)
         {
-            _patientServices = patientServices;
+            _dentisServices = dentisServices;
         }
 
-        [HttpGet("{requestedPatientID}")]
-        public IActionResult AllAppointments(int requestedPatientID)
+        [HttpGet("{requestedDentistID}")]
+        public IActionResult AllDentistFutureAppointments(int requestedDentistID)
         {
-            var appoint = _patientServices.AllPatientsAppointments(requestedPatientID);
+            var appoint = _dentisServices.AllDentistFutureAppointments(requestedDentistID);
             return Ok(appoint);
         }
     }

@@ -8,19 +8,16 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Linq.Expressions;
 using TandVark.Data.Interfaces;
+using TandVark.Domain.Helpers.Interfaces;
 
 namespace TandVark.Domain.Helpers
 {
     public static class PatientQueryObjects
     {
-        
 
-
-       
-
-        public static IQueryable<TSource> Future<TSource>(this IQueryable<TSource> @this) where TSource : IHasDate
+        public static IQueryable<TSource> FutureAppointments<TSource>(this IQueryable<TSource> @this, DateTime presentDate) where TSource : IHasAppointment
         {
-            var dateNow = DateTime.Today;
+            var dateNow = presentDate;
 
             var result = @this.Where(x => x.FldAppointmentBegin > dateNow);
 

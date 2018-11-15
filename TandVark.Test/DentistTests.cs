@@ -16,10 +16,10 @@ namespace TandVark.UnitTest
         public void HttpGetAllAppointments()
         {
             //ARRANGE
-            var fakeService = A.Fake<IPatientServices>();
+            var fakeService = A.Fake<IDentistServices>();
             var sut = new DentistController(fakeService);
             //ACT
-            var result = sut.AllAppointments();
+            var result = sut.AllDentistFutureAppointments(1);
             //ASSERT
         }
     }

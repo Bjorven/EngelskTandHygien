@@ -30,13 +30,18 @@ namespace TandVark_ASP.NETCORE_REACT
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TandVerkContext>(options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TandVark;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            //Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TandVark;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
+            
+            services.AddDbContext<TandVerkContext>(options => options.UseSqlServer("Data Source=LAPTOP-TU1UMOIC\\SQLEXPRESS;Initial Catalog=TandVerk;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IPatientServices, PatientServices>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
+            //IUser&User Kolla upp ifall denna behövs!
             services.AddScoped<IUser, User>();
+            services.AddScoped<IDentistServices, DentistServices>();
             services.AddScoped<IHelperValidationSSN, HelperValidationSSN>();
+            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the React files will be served from this directory

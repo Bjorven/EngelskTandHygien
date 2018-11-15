@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TandVark.Data.Interfaces
 {
-    public interface IHasDate
+    public interface IHasAppointment
     {
         DateTime FldAppointmentBegin { get; set; }
         DateTime FldAppointmentEnd { get; set; }
