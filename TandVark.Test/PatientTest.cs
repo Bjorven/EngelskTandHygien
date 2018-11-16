@@ -115,6 +115,7 @@ namespace TandVark.UnitTest
             var fakeUserInput = "198901263999";
             
             var fakeContext = A.Fake<TandVerkContext>();
+            var fakeDateTime = A.Fake<IDateTimeProvider>();
 
             var fakeCancel = A.Fake<CancellationToken>();
 
@@ -138,7 +139,7 @@ namespace TandVark.UnitTest
 
             A.CallTo(() => fakeContext.TblPatients.SingleOrDefaultAsync(x => x.FldSSnumber == fakeUserInput, fakeCancel)).Returns(fakeTblPatient);
            
-            var sut = new PatientServices(fakeContext);
+            var sut = new PatientServices(fakeContext, fakeDateTime);
 
             //ACT
             var result = await sut.SingelPatientAsync(fakeUserInput);

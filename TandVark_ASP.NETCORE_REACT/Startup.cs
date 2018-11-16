@@ -40,6 +40,7 @@ namespace TandVark_ASP.NETCORE_REACT
             //IUser&User Kolla upp ifall denna behövs!
             services.AddScoped<IUser, User>();
             services.AddScoped<IDentistServices, DentistServices>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IHelperValidationSSN, HelperValidationSSN>();
             services.AddScoped<IDateTimeProvider, DateTimeProvider>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
