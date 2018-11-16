@@ -40,8 +40,19 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
         [HttpDelete("{appointmentID}")]
         public async  Task<IActionResult> Appointment(int appointmentID)
         {
-            var result = await _appointmentService.DeleteAppointment(appointmentID);
-            return Ok(result);
+            try
+            {
+                var result = await _appointmentService.DeleteAppointment(appointmentID);
+                return Ok(result);
+            }
+            catch(NullReferenceException nullReferenceException)
+            {
+                return BadRequest(nullReferenceException.Message);
+            }
+            catch(Exception exception)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, exception.Message);
+            }
         }
     }
 }
