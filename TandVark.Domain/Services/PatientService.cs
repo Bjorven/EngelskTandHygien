@@ -60,18 +60,50 @@ namespace TandVark.Domain.Services
 
         public string AddPatients(PatientDTO patient)
         {
-            var tblInsertItem = new TblPatient()
+            using (var dbcxtransaction = _tandVardContext.Database.BeginTransaction())
             {
-                FldFirstName = patient.FldFirstName,
-                FldLastName = patient.FldLastName,
-                 FldAddress = patient.FldAddress,
-                 FldEmail =patient.FldEmail,
-                 FldSSnumber = patient.FldSSnumber,
-                 
+                var tblInsertItem = new TblPatient()
+                {
+                    FldFirstName = patient.FldFirstName,
+                    FldLastName = patient.FldLastName,
+                    FldAddress = patient.FldAddress,
+                    FldEmail = patient.FldEmail,
+                    FldSSnumber = patient.FldSSnumber,
+                    FldPhoneNumber = patient.FldPhoneNumber
+
+                };
+
+                var result = _tandVardContext.TblPatients.Add(tblInsertItem);
+                _tandVardContext.SaveChanges();
+                dbcxtransaction.Commit();
+
+                if (result.State.ToString() == "Added")
+                {
+                    return "New patient created";
+                }
+                else
+                {
+                    throw new Exception("Something went wrong");
+                }
                 
             }
+        }
 
-            _tandVardContext.TblPatients.Add(tblInsertItem);
+        public string DeletePatients(int Id)
+        {
+            using (var dbcxtransaction = _tandVardContext.Database.BeginTransaction())
+            {
+                var patient = _tandVardContext.TblPatients.Find(Id);
+                if (patient == null)
+                    throw new NullReferenceException("Patient does not exist");
+
+                _tandVardContext.TblPatients.Remove(patient);
+                _tandVardContext.SaveChanges();
+                dbcxtransaction.Commit();
+              
+                    return "Patient Deleted";
+             
+            }
         }
     }
 }

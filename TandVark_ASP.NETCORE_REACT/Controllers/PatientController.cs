@@ -59,10 +59,13 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
         {
             try
             {
-                _helperValidationSSN.validate(patient.FldSSnumber);
+                if(!_helperValidationSSN.validate(patient.FldSSnumber))
+                    return BadRequest("Invalid SSN");
 
                 var result = _patientServices.AddPatients(patient);
                 return Ok(result);
+
+
             }
             catch(ArgumentException argumentException)
             {
@@ -72,6 +75,13 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, exception.Message);
             }
+        }
+        [HttpDelete("{requestedPatientID}")]
+        public IActionResult DeleteSinglePatient(int requestedPatientID)
+        {
+            var result = _patientServices.DeletePatients(requestedPatientID);
+            return Ok(result);
+
         }
     }
     
