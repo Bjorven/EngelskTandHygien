@@ -11,5 +11,6 @@ namespace TandVark.Domain.Services.Interfaces
         Task<TblPatient> SingelPatientAsync(string requestedPatient);
         Task<IEnumerable<TblPatient>> AllPatients();
         List<TblAppointment> AllPatientsFutureAppointments(int requestedPatient);
+        string AddPatients(PatientDTO patient);
     }
 }

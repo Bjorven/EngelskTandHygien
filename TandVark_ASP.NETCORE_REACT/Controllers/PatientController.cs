@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TandVark.Domain.Services.Interfaces;
 using TandVark.Domain.Helpers.Interfaces;
+using TandVark.Domain.DTO;
 
 namespace TandVark_ASP.NETCORE_REACT.Controllers
 {
@@ -51,6 +52,25 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
             catch(Exception e)
             {
                 return  StatusCode((int)HttpStatusCode.InternalServerError,  e.Message);
+            }
+        }
+        [HttpPost("new")]
+        public IActionResult AddNewPatient([FromBody] PatientDTO patient)
+        {
+            try
+            {
+                _helperValidationSSN.validate(patient.FldSSnumber);
+
+                var result = _patientServices.AddPatients(patient);
+                return Ok(result);
+            }
+            catch(ArgumentException argumentException)
+            {
+                return BadRequest(argumentException.Message);
+            }
+            catch(Exception exception)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, exception.Message);
             }
         }
     }

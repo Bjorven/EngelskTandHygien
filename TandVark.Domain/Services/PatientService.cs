@@ -57,5 +57,21 @@ namespace TandVark.Domain.Services
                        );
             return res;
         }
+
+        public string AddPatients(PatientDTO patient)
+        {
+            var tblInsertItem = new TblPatient()
+            {
+                FldFirstName = patient.FldFirstName,
+                FldLastName = patient.FldLastName,
+                 FldAddress = patient.FldAddress,
+                 FldEmail =patient.FldEmail,
+                 FldSSnumber = patient.FldSSnumber,
+                 
+                
+            }
+
+            _tandVardContext.TblPatients.Add(tblInsertItem);
+        }
     }
 }

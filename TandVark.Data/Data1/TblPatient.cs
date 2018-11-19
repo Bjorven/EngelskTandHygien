@@ -21,7 +21,7 @@ namespace TandVark.Data.Data1
         public string FldSSnumber { get; set; }
 
         public string FldAddress { get; set; }
-        public string FldPhoneId { get; set; }
+        public string FldPhoneNumber { get; set; }
         public string FldEmail { get; set; }
         
 

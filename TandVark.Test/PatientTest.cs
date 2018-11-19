@@ -124,7 +124,7 @@ namespace TandVark.UnitTest
             expectedResult.FldFirstName = "Björn";
             expectedResult.FldLastName = "Bergqvist Wingren";
             expectedResult.FldSSnumber = "198901263999";
-            expectedResult.FldPhoneId = "0730595983";
+            expectedResult.FldPhoneNumber = "0730595983";
             expectedResult.FldEmail = "peken@live.se";
             expectedResult.FldAddress = "Gatan 11";
 
@@ -133,7 +133,7 @@ namespace TandVark.UnitTest
             fakeTblPatient.FldFirstName = "Björn";
             fakeTblPatient.FldLastName = "Bergqvist Wingren";
             fakeTblPatient.FldSSnumber = "198901263999";
-            fakeTblPatient.FldPhoneId = "0730595983";
+            fakeTblPatient.FldPhoneNumber = "0730595983";
             fakeTblPatient.FldEmail = "peken@live.se";
             fakeTblPatient.FldAddress = "Gatan 11";
 
