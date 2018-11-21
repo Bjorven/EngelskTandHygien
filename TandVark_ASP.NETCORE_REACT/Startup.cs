@@ -17,6 +17,7 @@ using TandVark.Domain.Services.Interfaces;
 using TandVark.Domain.Helpers.Interfaces;
 using TandVark.Domain.Helpers;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using TandVark_ASP.NETCORE_REACT.Middlewares;
 
 namespace TandVark_ASP.NETCORE_REACT
 {
@@ -36,14 +37,14 @@ namespace TandVark_ASP.NETCORE_REACT
             //Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TandVark;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;
             
             //LILLA DATORN
-            //services.AddDbContext<TandVerkContext>(options => options.UseSqlServer("Data Source=LAPTOP-TU1UMOIC\\SQLEXPRESS;Initial Catalog=TandVerk;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            services.AddDbContext<TandVerkContext>(options => options.UseSqlServer("Data Source=LAPTOP-TU1UMOIC\\SQLEXPRESS;Initial Catalog=TandVerk;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             
             //IN MEMORY DATABAS DEMO
-            services.AddDbContext<TandVerkContext>(options =>
-            {
-                options.UseInMemoryDatabase("TestDb");
-                options.ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning));
-            });
+            //services.AddDbContext<TandVerkContext>(options =>
+            //{
+            //    options.UseInMemoryDatabase("TestDb");
+            //    options.ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning));
+            //});
 
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IPatientServices, PatientServices>();
@@ -76,7 +77,7 @@ namespace TandVark_ASP.NETCORE_REACT
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
+            app.UseMiddleware<RequestResponseLoggerMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();

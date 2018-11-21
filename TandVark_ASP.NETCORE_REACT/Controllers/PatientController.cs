@@ -21,9 +21,7 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
             _helperValidationSSN = helperValidationSSN;
         }
 
-        //Add new patient
-
-        // DELETE Patient
+        
 
         // Edit Patient
 
@@ -82,11 +80,24 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, exception.Message);
             }
         }
+
+        
         [HttpDelete("{requestedPatientID}")]
         public IActionResult DeleteSinglePatient(int requestedPatientID)
         {
-            var result = _patientServices.DeletePatients(requestedPatientID);
-            return Ok(result);
+            try
+            {
+                var result = _patientServices.DeletePatients(requestedPatientID);
+                return Ok(result);
+            }
+            catch (ArgumentException argumentException)
+            {
+                return BadRequest(argumentException.Message);
+            }
+            catch (Exception exception)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, exception.Message);
+            }
 
         }
     }

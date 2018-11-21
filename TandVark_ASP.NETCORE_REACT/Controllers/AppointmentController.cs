@@ -19,7 +19,7 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
 
         //Edit Appointment
         //Add AppointmentTypes to Entity and Tables in DB
-        // GET singel Appointment include X-rays
+        //GET singel Appointment include X-rays
         //Add X-Ray pics to Appointment
 
         [HttpPost]
