@@ -20,6 +20,12 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
             _helperValidationSSN = helperValidationSSN;
         }
 
+        //Add new patient
+
+        // DELETE Patient
+
+        // Edit Patient
+
         [HttpGet("{requestedPatientSSNumber}")]
         public async Task<IActionResult> SingelPatientDetailsAsync(string requestedPatientSSNumber)
         {
