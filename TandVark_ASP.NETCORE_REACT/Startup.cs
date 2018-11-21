@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.InMemory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TandVark.Domain.Models;
@@ -15,6 +16,7 @@ using TandVark.Domain.Services;
 using TandVark.Domain.Services.Interfaces;
 using TandVark.Domain.Helpers.Interfaces;
 using TandVark.Domain.Helpers;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace TandVark_ASP.NETCORE_REACT
 {
@@ -30,9 +32,19 @@ namespace TandVark_ASP.NETCORE_REACT
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TandVark;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False
+            //STORA DATORN
+            //Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TandVark;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;
             
-            services.AddDbContext<TandVerkContext>(options => options.UseSqlServer("Data Source=LAPTOP-TU1UMOIC\\SQLEXPRESS;Initial Catalog=TandVerk;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            //LILLA DATORN
+            //services.AddDbContext<TandVerkContext>(options => options.UseSqlServer("Data Source=LAPTOP-TU1UMOIC\\SQLEXPRESS;Initial Catalog=TandVerk;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            
+            //IN MEMORY DATABAS DEMO
+            services.AddDbContext<TandVerkContext>(options =>
+            {
+                options.UseInMemoryDatabase("TestDb");
+                options.ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning));
+            });
+
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IPatientServices, PatientServices>();
             services.AddScoped<IUserRepository, UserRepository>();
