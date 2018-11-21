@@ -180,6 +180,20 @@ namespace TandVark.UnitTest
 
         }
         [Fact]
+        public void validateSSNrwithNonNumberStringReturnsFalse()
+        {
+            //Arrange
+            var UserInputSSNr = "asdasfasfads";
+
+
+            var sut = new HelperValidationSSN();
+            //ACT
+            var result = sut.Validate(UserInputSSNr);
+            //ASSERT
+            Assert.False(result);
+
+        }
+        [Fact]
         public async void HttpGetAllPatient_HappyPath() {
             //ARRANGE
             var expected = typeof(OkObjectResult);
@@ -192,7 +206,7 @@ namespace TandVark.UnitTest
 
             //ACT
 
-            var result = sut.AllPatients();
+            var result = await sut.AllPatients();
             //ASSERT
             Assert.IsType(expected, result);
         }

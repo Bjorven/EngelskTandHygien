@@ -2,7 +2,6 @@ using System;
 using Xunit;
 using FakeItEasy;
 using TandVark.Domain.Repositories.Interfaces;
-using TandVark.Domain.Models.Interfaces;
 using TandVark.Domain.Models;
 using System.Collections.Generic;
 

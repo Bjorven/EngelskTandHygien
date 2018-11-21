@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using TandVark.Domain.Repositories.Interfaces;
-using TandVark.Domain.Models.Interfaces;
+
 using TandVark.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 using TandVark.Domain.Services.Interfaces;
