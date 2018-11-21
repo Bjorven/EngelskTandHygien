@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace TandVark.Data.Data1
 {
@@ -17,6 +15,6 @@ namespace TandVark.Data.Data1
         [ForeignKey("FldUserTypeId")]
         public TblUserType FldUserType { get; set; }
         
-        public List<TblAppointment> TblAppointment { get; set; }
+        public List<TblAppointment> Appointments { get; set; }
     }
 }

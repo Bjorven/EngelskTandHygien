@@ -120,7 +120,7 @@ namespace TandVark.UnitTest
             var fakeCancel = A.Fake<CancellationToken>();
 
             var expectedResult = A.Fake<PatientDTO>();
-            expectedResult.FldId = 1;
+            expectedResult.FldPatientId = 1;
             expectedResult.FldFirstName = "Björn";
             expectedResult.FldLastName = "Bergqvist Wingren";
             expectedResult.FldSSnumber = "198901263999";
@@ -147,7 +147,7 @@ namespace TandVark.UnitTest
             //ASSERT
             Assert.IsType<PatientDTO>(result);
 
-            Assert.True(expectedResult.FldId == result.FldPatientId && expectedResult.FldFirstName == result.FldFirstName);
+            Assert.True(expectedResult.FldPatientId == result.FldPatientId && expectedResult.FldFirstName == result.FldFirstName);
 
         }
         [Fact]
@@ -159,7 +159,7 @@ namespace TandVark.UnitTest
 
             var sut = new HelperValidationSSN();
             //ACT
-            var result = sut.validate(UserInputSSNr);
+            var result = sut.Validate(UserInputSSNr);
             //ASSERT
             Assert.True(result);
            
@@ -174,7 +174,7 @@ namespace TandVark.UnitTest
 
             var sut = new HelperValidationSSN();
             //ACT
-            var result = sut.validate(UserInputSSNr);
+            var result = sut.Validate(UserInputSSNr);
             //ASSERT
             Assert.False(result);
 

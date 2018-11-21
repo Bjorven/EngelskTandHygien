@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TandVark.Data.Data1;
-using TandVark.Domain.DTO;
 
 namespace TandVark.Domain.Services.Interfaces
 {

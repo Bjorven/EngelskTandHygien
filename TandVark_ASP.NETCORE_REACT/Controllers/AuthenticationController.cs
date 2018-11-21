@@ -25,7 +25,7 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
     
         [HttpPost]
         [Route("{FromBody}")]
-        public async Task<IActionResult> AuthenticateUserAsync([FromBody]User credentialsModel)
+        public async Task<IActionResult> AuthenticateUserAsync([FromBody]UserViewModel credentialsModel)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
                 if (credentialsModel.PassWord == null)
                     throw new ArgumentNullException($"Parameter {nameof(credentialsModel.PassWord)} cannot be null", nameof(credentialsModel.PassWord));
 
-                return Ok(await _userService.GetUserForAuthenticationAsync(credentialsModel));
+                return Ok(await _userService.AuthenticationAsync(credentialsModel));
 
             }
             catch (ArgumentNullException argumentNullException)

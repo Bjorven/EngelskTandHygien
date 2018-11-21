@@ -31,7 +31,7 @@ namespace TandVark.Test
             var expectedMessage = message;
             var expectedErrorCode = errorCode;
 
-            var fakeUserInput = A.Fake<User>();
+            var fakeUserInput = A.Fake<UserViewModel>();
             fakeUserInput.UserName = "U1";
             fakeUserInput.PassWord = "1234";
 
@@ -39,7 +39,7 @@ namespace TandVark.Test
             var fakeService = A.Fake<IUserServices>();
 
 
-             A.CallTo(() => fakeService.GetUserForAuthenticationAsync(fakeUserInput)).Returns(fakeUserDTO);
+             A.CallTo(() => fakeService.AuthenticationAsync(fakeUserInput)).Returns(fakeUserDTO);
               
 
             var sut = new AuthenticationController(fakeService);

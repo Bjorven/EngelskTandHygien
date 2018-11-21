@@ -23,14 +23,14 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
 
         
 
-        // Edit Patient
+        
 
         [HttpGet("{requestedPatientSSNumber}")]
         public async Task<IActionResult> SingelPatientDetailsAsync(string requestedPatientSSNumber)
         {
             try
             {
-                if (!_helperValidationSSN.validate(requestedPatientSSNumber))
+                if (!_helperValidationSSN.Validate(requestedPatientSSNumber))
                     return BadRequest("Invalid SSN");
                 var patient = await _patientServices.SingelPatientAsync(requestedPatientSSNumber);
                 return Ok(patient);
@@ -50,8 +50,8 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
         {
             try
             {
-                var pa = await _patientServices.AllPatients();
-                return Ok(pa);
+                var patients = await _patientServices.AllPatients();
+                return Ok(patients);
             }
             catch(Exception e)
             {
@@ -63,7 +63,7 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
         {
             try
             {
-                if(!_helperValidationSSN.validate(patient.FldSSnumber))
+                if(!_helperValidationSSN.Validate(patient.FldSSnumber))
                     return BadRequest("Invalid SSN");
 
                 var result = _patientServices.AddPatients(patient);
@@ -99,6 +99,22 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, exception.Message);
             }
 
+        }
+
+        [HttpPut("")]
+        public IActionResult EditSingelPatient([FromBody]PatientDTO requestedPatient)
+        {
+            try
+            {
+                var result = _patientServices.EditPatients(requestedPatient);
+                return Ok(result);
+
+
+            }
+            catch (Exception exception)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, exception.Message);
+            }
         }
     }
     

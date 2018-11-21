@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TandVark.Domain.DTO;
 using TandVark.Data.Data1;
 using Microsoft.EntityFrameworkCore;
 using TandVark.Domain.Services.Interfaces;
-using TandVark.Domain.Repositories.Interfaces;
 using TandVark.Domain.Helpers;
 using System.Linq;
 using TandVark.Domain.Helpers.Interfaces;
@@ -103,6 +101,26 @@ namespace TandVark.Domain.Services
               
                     return "Patient Deleted";
              
+            }
+        }
+        public string EditPatients(PatientDTO patientUpdated)
+        {
+            using (var dbcxtransaction = _tandVardContext.Database.BeginTransaction())
+            {
+                var patient = _tandVardContext.TblPatients.Find(patientUpdated.FldPatientId);
+                if (patient == null)
+                    throw new NullReferenceException("Patient does not exist");
+
+                patient.FldFirstName = patientUpdated.FldFirstName;
+                patient.FldLastName = patientUpdated.FldLastName;
+                patient.FldAddress = patientUpdated.FldAddress;
+                patient.FldEmail = patientUpdated.FldEmail;
+                patient.FldPhoneNumber = patientUpdated.FldPhoneNumber;
+
+                _tandVardContext.TblPatients.Update(patient);
+                _tandVardContext.SaveChanges();
+                dbcxtransaction.Commit();
+                return "Patient Updated";
             }
         }
     }

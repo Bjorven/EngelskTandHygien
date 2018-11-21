@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using TandVark.Data.Data1;
 using TandVark.Domain.DTO;
-using TandVark.Domain.Models;
 
 namespace TandVark.Domain.Services.Interfaces
 {
@@ -13,5 +12,6 @@ namespace TandVark.Domain.Services.Interfaces
         List<TblAppointment> AllPatientsFutureAppointments(int requestedPatient);
         string AddPatients(PatientDTO patient);
         string DeletePatients(int Id);
+        string EditPatients(PatientDTO patientUpdated);
     }
 }

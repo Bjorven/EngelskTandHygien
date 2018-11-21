@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.RegularExpressions;
-using TandVark.Domain.DTO;
 using TandVark.Domain.Helpers.Interfaces;
 
 namespace TandVark.Domain.Helpers
@@ -12,13 +9,13 @@ namespace TandVark.Domain.Helpers
 
 
 
-        public bool validate(string SSNr)
+        public bool Validate(string sSNr)
         {
             
-            if (!Regex.Match(SSNr, @"^\d{12}$").Success)
-                throw new ArgumentNullException($"Parameter {nameof(SSNr)} Must be 12 characters long", nameof(SSNr));
-            int check = int.Parse(SSNr.Substring(11, 1));
-            string sValue = SSNr.Substring(2, 9);
+            if (!Regex.Match(sSNr, @"^\d{12}$").Success)
+                throw new ArgumentNullException($"Parameter {nameof(sSNr)} Must be 12 characters long", nameof(sSNr));
+            int check = int.Parse(sSNr.Substring(11, 1));
+            string sValue = sSNr.Substring(2, 9);
 
             int result = 0;
 

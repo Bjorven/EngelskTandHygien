@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TandVark.Data.Data1;
-using TandVark.Domain.DTO;
 using TandVark.Domain.Helpers;
 using TandVark.Domain.Helpers.Interfaces;
 using TandVark.Domain.Services.Interfaces;

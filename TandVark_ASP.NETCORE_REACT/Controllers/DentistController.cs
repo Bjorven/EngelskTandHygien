@@ -21,8 +21,8 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
         [HttpGet("{requestedDentistID}")]
         public IActionResult AllDentistFutureAppointments(int requestedDentistID)
         {
-            var appoint = _dentisServices.AllDentistFutureAppointments(requestedDentistID);
-            return Ok(appoint);
+            var appointments = _dentisServices.AllDentistFutureAppointments(requestedDentistID);
+            return Ok(appointments);
         }
     }
 }

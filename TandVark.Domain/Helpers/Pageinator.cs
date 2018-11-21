@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using TandVark.Data.Data1;
-using TandVark.Domain.Helpers.Interfaces;
 
 namespace TandVark.Domain.Helpers
 {

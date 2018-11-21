@@ -16,7 +16,7 @@ namespace TandVark.Domain.Services
             _iUserRepository = iUserRepository;
         }
 
-        public async Task<UserDTO> GetUserForAuthenticationAsync(User _User)
+        public async Task<UserDTO> AuthenticationAsync(UserViewModel _User)
         {
             var value = await _iUserRepository.GetUserAsync(_User.UserName);
 

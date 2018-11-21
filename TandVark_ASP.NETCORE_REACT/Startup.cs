@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore.InMemory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TandVark.Domain.Models;
-using TandVark.Domain.Models.Interfaces;
 using TandVark.Domain.Repositories;
 using TandVark.Domain.Repositories.Interfaces;
 using TandVark.Data.Data1;
@@ -34,10 +33,11 @@ namespace TandVark_ASP.NETCORE_REACT
         public void ConfigureServices(IServiceCollection services)
         {
             //STORA DATORN
-            //Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TandVark;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;
-            
+            //
+            services.AddDbContext<TandVerkContext>(options => options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TandVark;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;"));
+
             //LILLA DATORN
-            services.AddDbContext<TandVerkContext>(options => options.UseSqlServer("Data Source=LAPTOP-TU1UMOIC\\SQLEXPRESS;Initial Catalog=TandVerk;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            //services.AddDbContext<TandVerkContext>(options => options.UseSqlServer("Data Source=LAPTOP-TU1UMOIC\\SQLEXPRESS;Initial Catalog=TandVerk;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             
             //IN MEMORY DATABAS DEMO
             //services.AddDbContext<TandVerkContext>(options =>
@@ -49,9 +49,6 @@ namespace TandVark_ASP.NETCORE_REACT
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IPatientServices, PatientServices>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IPatientRepository, PatientRepository>();
-            //IUser&User Kolla upp ifall denna behövs!
-            services.AddScoped<IUser, User>();
             services.AddScoped<IDentistServices, DentistServices>();
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<IHelperValidationSSN, HelperValidationSSN>();

@@ -23,7 +23,7 @@ namespace TandVark.Data.Data1
         [ForeignKey("FldPatientFK")]
         public virtual TblPatient FldAppointedPatient { get; set; }
 
-        public virtual List<TblXray> FldXrays { get; set; }
+        public virtual List<TblXray> Xrays { get; set; }
 
     }
 }

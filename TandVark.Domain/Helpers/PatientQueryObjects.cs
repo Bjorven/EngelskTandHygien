@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TandVark.Data.Data1;
-using Microsoft.EntityFrameworkCore;
-using System.Collections;
-using System.Linq.Expressions;
 using TandVark.Data.Interfaces;
-using TandVark.Domain.Helpers.Interfaces;
 
 namespace TandVark.Domain.Helpers
 {

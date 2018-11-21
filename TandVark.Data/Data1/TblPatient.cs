@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace TandVark.Data.Data1
 {
@@ -26,7 +24,7 @@ namespace TandVark.Data.Data1
         
 
         
-        public List<TblAppointment> FldAppointment { get; set; }
+        public List<TblAppointment> Appointments { get; set; }
 
     }
 }

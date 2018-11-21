@@ -6,6 +6,6 @@ namespace TandVark.Domain.Services.Interfaces
 {
     public interface IUserServices
     {
-        Task<UserDTO> GetUserForAuthenticationAsync(User _User);
+        Task<UserDTO> AuthenticationAsync(UserViewModel _User);
     }
 }
