@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using TandVark.Data.Data1;
 
-namespace TandVark.Domain.Helpers
+namespace TandVark.Domain.QueryObjects
 {
     public static class Pageinator
     {

@@ -32,13 +32,13 @@ namespace TandVark.UnitTest
             
             var fakeUserInput = "198901263999";
             
-            var fakeUserResult = A.Fake<TblPatient>();
+            var fakeUserResult = A.Fake<PatientDTO>();
             var fakeService = A.Fake<IPatientServices>();
             var fakeHelperValidation = A.Fake<IHelperValidationSSN>();
             
             
             A.CallTo(() => fakeService.SingelPatientAsync(fakeUserInput)).Returns(fakeUserResult);
-
+            A.CallTo(() => fakeHelperValidation.Validate(fakeUserInput)).Returns(true);
             
             var sut = new PatientController(fakeService, fakeHelperValidation);
 
@@ -57,7 +57,8 @@ namespace TandVark.UnitTest
             //ARRANGE
             var expectedType = typeof(BadRequestObjectResult);
             var expectedStatusCode = (int)HttpStatusCode.BadRequest;
-            var message = "Invalid SSN";
+            var requestedPatientSSNumber = "";
+            var message = $"Parameter {nameof(requestedPatientSSNumber)} Must be 12 characters long and may only contain digits.";
 
             var fakeUserInput = "210301230123";
             
@@ -88,13 +89,16 @@ namespace TandVark.UnitTest
             var expectedStatusCode = (int)HttpStatusCode.BadRequest;
 
             var fakeUserInput = "";
-            var SSNr = "";
-            var message = $"Parameter {nameof(SSNr)} Must be 12 characters long";
+            var requestedPatientSSNumber = "";
+            var message = $"Parameter {nameof(requestedPatientSSNumber)} Must be 12 characters long and may only contain digits.";
             var fakeException = new NullReferenceException(message);
+            var fakeException2 = new ArgumentException(message);
+
             var fakeHelperValidation = A.Fake<IHelperValidationSSN>();
 
             var fakeService = A.Fake<IPatientServices>();
-            A.CallTo(() => fakeService.SingelPatientAsync(fakeUserInput)).Throws(fakeException);
+            //A.CallTo(() => fakeService.SingelPatientAsync(fakeUserInput)).Throws(fakeException);
+            A.CallTo(() => fakeHelperValidation.Validate(fakeUserInput)).Returns(false);
 
             var sut = new PatientController(fakeService, fakeHelperValidation);
 
@@ -108,48 +112,7 @@ namespace TandVark.UnitTest
             Assert.Equal(expectedStatusCode, result.StatusCode);
         }
 
-        [Fact]
-        public async void GetValidSinglePatient_WillOnlyWorkWithValidInput()
-        {
-            //Arrange
-            var fakeUserInput = "198901263999";
-            
-            var fakeContext = A.Fake<TandVerkContext>();
-            var fakeDateTime = A.Fake<IDateTimeProvider>();
-
-            var fakeCancel = A.Fake<CancellationToken>();
-
-            var expectedResult = A.Fake<PatientDTO>();
-            expectedResult.FldPatientId = 1;
-            expectedResult.FldFirstName = "Björn";
-            expectedResult.FldLastName = "Bergqvist Wingren";
-            expectedResult.FldSSnumber = "198901263999";
-            expectedResult.FldPhoneNumber = "0730595983";
-            expectedResult.FldEmail = "peken@live.se";
-            expectedResult.FldAddress = "Gatan 11";
-
-            var fakeTblPatient = A.Fake<TblPatient>();
-            fakeTblPatient.FldPatientId = 1;
-            fakeTblPatient.FldFirstName = "Björn";
-            fakeTblPatient.FldLastName = "Bergqvist Wingren";
-            fakeTblPatient.FldSSnumber = "198901263999";
-            fakeTblPatient.FldPhoneNumber = "0730595983";
-            fakeTblPatient.FldEmail = "peken@live.se";
-            fakeTblPatient.FldAddress = "Gatan 11";
-
-            A.CallTo(() => fakeContext.TblPatients.SingleOrDefaultAsync(x => x.FldSSnumber == fakeUserInput, fakeCancel)).Returns(fakeTblPatient);
-           
-            var sut = new PatientServices(fakeContext, fakeDateTime);
-
-            //ACT
-            var result = await sut.SingelPatientAsync(fakeUserInput);
-
-            //ASSERT
-            Assert.IsType<PatientDTO>(result);
-
-            Assert.True(expectedResult.FldPatientId == result.FldPatientId && expectedResult.FldFirstName == result.FldFirstName);
-
-        }
+   
         [Fact]
         public void validateSSNrTrue()
         {
@@ -194,19 +157,34 @@ namespace TandVark.UnitTest
 
         }
         [Fact]
+        public void validateSSNrwithEmptyStringReturnsFalse()
+        {
+            //Arrange
+            var UserInputSSNr = "";
+
+
+            var sut = new HelperValidationSSN();
+            //ACT
+            var result = sut.Validate(UserInputSSNr);
+            //ASSERT
+            Assert.False(result);
+
+        }
+        [Fact]
         public async void HttpGetAllPatient_HappyPath() {
             //ARRANGE
             var expected = typeof(OkObjectResult);
-            var fakeResponse = A.Fake<IEnumerable<TblPatient>>();
+            var fakePageNumber = 1;
+            var fakeUserResult = A.Fake<List<PatientDTO>>();
             var fakeService = A.Fake<PatientServices>();
             var fakeHelper = A.Fake<IHelperValidationSSN>();
 
-            A.CallTo(() => fakeService.AllPatients()).Returns(fakeResponse);
+            A.CallTo(() => fakeService.AllPatients(fakePageNumber)).Returns(fakeUserResult);
             var sut = new PatientController(fakeService, fakeHelper);
 
             //ACT
 
-            var result = await sut.AllPatients();
+            var result = await sut.AllPatients(1);
             //ASSERT
             Assert.IsType(expected, result);
         }

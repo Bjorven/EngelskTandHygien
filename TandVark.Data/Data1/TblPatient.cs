@@ -24,7 +24,7 @@ namespace TandVark.Data.Data1
         
 
         
-        public List<TblAppointment> Appointments { get; set; }
+        public virtual List<TblAppointment> Appointments { get; set; }
 
     }
 }

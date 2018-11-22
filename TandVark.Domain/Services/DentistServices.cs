@@ -3,6 +3,7 @@ using System.Linq;
 using TandVark.Data.Data1;
 using TandVark.Domain.Helpers;
 using TandVark.Domain.Helpers.Interfaces;
+using TandVark.Domain.QueryObjects;
 using TandVark.Domain.Services.Interfaces;
 
 namespace TandVark.Domain.Services

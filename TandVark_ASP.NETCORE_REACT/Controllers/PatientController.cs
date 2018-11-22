@@ -31,7 +31,7 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
             try
             {
                 if (!_helperValidationSSN.Validate(requestedPatientSSNumber))
-                    return BadRequest("Invalid SSN");
+                    return BadRequest($"Parameter {nameof(requestedPatientSSNumber)} Must be 12 characters long and may only contain digits.");
                 var patient = await _patientServices.SingelPatientAsync(requestedPatientSSNumber);
                 return Ok(patient);
             }
@@ -45,12 +45,12 @@ namespace TandVark_ASP.NETCORE_REACT.Controllers
             }
         }
 
-        [HttpGet("")]
-        public async Task<IActionResult> AllPatients()
+        [HttpGet("all/{pageNumber}")]
+        public async Task<IActionResult> AllPatients(int pageNumber)
         {
             try
             {
-                var patients = await _patientServices.AllPatients();
+                var patients = await _patientServices.AllPatients(pageNumber);
                 return Ok(patients);
             }
             catch(Exception e)

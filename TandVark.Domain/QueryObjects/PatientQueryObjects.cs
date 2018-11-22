@@ -2,7 +2,7 @@
 using System.Linq;
 using TandVark.Data.Interfaces;
 
-namespace TandVark.Domain.Helpers
+namespace TandVark.Domain.QueryObjects
 {
     public static class PatientQueryObjects
     {

@@ -8,6 +8,7 @@ using TandVark.Domain.Services.Interfaces;
 using TandVark.Domain.Helpers;
 using System.Linq;
 using TandVark.Domain.Helpers.Interfaces;
+using TandVark.Domain.QueryObjects;
 
 namespace TandVark.Domain.Services
 {
@@ -23,25 +24,50 @@ namespace TandVark.Domain.Services
             _dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task<TblPatient> SingelPatientAsync(string requestedPatient)
+        public async Task<PatientDTO> SingelPatientAsync(string requestedPatient)
         {
 
-            var value = await _tandVardContext.TblPatients.SingleOrDefaultAsync(x => x.FldSSnumber == requestedPatient);
+            var patient = await _tandVardContext.TblPatients.SingleOrDefaultAsync(x => x.FldSSnumber == requestedPatient);
 
-            if (value == null)
+            if (patient == null)
             {
                 throw new NullReferenceException("Patient does not exist");
             }
+            var p = new PatientDTO();
+            p.FldPatientId = patient.FldPatientId;
+            p.FldFirstName = patient.FldFirstName;
+            p.FldLastName = patient.FldLastName;
+            p.FldSSnumber = patient.FldSSnumber;
+            p.FldAddress = patient.FldAddress;
+            p.FldEmail = patient.FldEmail;
+            p.FldPhoneNumber = patient.FldPhoneNumber;
 
-            return value;
+            return p;
 
         }
 
-        public async Task<IEnumerable<TblPatient>> AllPatients()
+        public async Task<List<PatientDTO>> AllPatients(int pageNumber)
         {
+            List<PatientDTO> patients = new List<PatientDTO>();
+            var result = _tandVardContext.TblPatients.Page(pageNumber);
 
-            var result = _tandVardContext.TblPatients.Page(1);
-            return await Task.FromResult(result);
+            await Task.FromResult(result);
+
+            foreach (var patient in result)
+            {
+                var p = new PatientDTO();
+                p.FldPatientId = patient.FldPatientId;
+                p.FldFirstName = patient.FldFirstName;
+                p.FldLastName = patient.FldLastName;
+                p.FldSSnumber = patient.FldSSnumber;
+                p.FldAddress = patient.FldAddress;
+                p.FldEmail = patient.FldEmail;
+                p.FldPhoneNumber = patient.FldPhoneNumber;
+
+                patients.Add(p);
+            }
+
+            return patients;
 
         }
 
@@ -72,11 +98,12 @@ namespace TandVark.Domain.Services
                 };
 
                 var result = _tandVardContext.TblPatients.Add(tblInsertItem);
-                _tandVardContext.SaveChanges();
-                dbcxtransaction.Commit();
+                
 
                 if (result.State.ToString() == "Added")
                 {
+                    _tandVardContext.SaveChanges();
+                    dbcxtransaction.Commit();
                     return "New patient created";
                 }
                 else

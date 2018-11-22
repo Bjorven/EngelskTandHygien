@@ -26,7 +26,7 @@ namespace TandVark.Domain.Services
             }
             else if (_User.UserName == value.FldAccountName && _User.PassWord == value.FldPassword)
             {
-                var User = new UserDTO { UserName = value.FldAccountName, UserType = value.FldUserType.FldEmployeeTypeName };
+                var User = new UserDTO { FldAccountName = value.FldAccountName, FldUserType = value.FldUserType.FldEmployeeTypeName };
                 return User;
             }
             throw new ArgumentException("User credentials missmatch");

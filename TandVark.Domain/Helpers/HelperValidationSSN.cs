@@ -7,13 +7,11 @@ namespace TandVark.Domain.Helpers
     public class HelperValidationSSN:IHelperValidationSSN
     {
 
-
-
         public bool Validate(string sSNr)
         {
-            
+
             if (!Regex.Match(sSNr, @"^\d{12}$").Success)
-                throw new ArgumentNullException($"Parameter {nameof(sSNr)} Must be 12 characters long", nameof(sSNr));
+                return false;
             int check = int.Parse(sSNr.Substring(11, 1));
             string sValue = sSNr.Substring(2, 9);
 

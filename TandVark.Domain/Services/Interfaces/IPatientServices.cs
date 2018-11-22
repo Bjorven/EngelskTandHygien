@@ -7,8 +7,8 @@ namespace TandVark.Domain.Services.Interfaces
 {
     public interface IPatientServices
     {
-        Task<TblPatient> SingelPatientAsync(string requestedPatient);
-        Task<IEnumerable<TblPatient>> AllPatients();
+        Task<PatientDTO> SingelPatientAsync(string requestedPatient);
+        Task<List<PatientDTO>> AllPatients(int pageNumber);
         List<TblAppointment> AllPatientsFutureAppointments(int requestedPatient);
         string AddPatients(PatientDTO patient);
         string DeletePatients(int Id);
